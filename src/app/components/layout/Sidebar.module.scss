@@ -1,3 +1,16 @@
 .sidebar{
-    @apply flex items-center flex-col justify-between;
+    height: 100%;
+    @apply flex items-center flex-col justify-between border-r-2 py-5;
+
+   a{
+    @apply mb-5 block;
+   }
+
+   svg{
+    @apply text-[#7c7275] duration-300 ease-in-out transition-colors;
+    
+    &:hover{
+        @apply text-white
+    }
+   }
 }

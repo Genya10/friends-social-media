@@ -6,19 +6,19 @@ import Link from "next/link";
 export function Sidebar() {
   return (
     <aside className={cl.sidebar}>
-      <Image src="/linear-icon.svg" alt="" width={50} height={50} />
+      <Image src="/linear-icon.svg" priority alt="image" width={50} height={50} />
       <div>
         <Link href="/friends">
-          <User2 />
+          <User2 size={30}/>
         </Link>
         <Link href="/call">
-          <Phone />
+          <Phone size={30}/>
         </Link>
         <Link href="/chats">
-          <MessageSquare />
+          <MessageSquare size={30}/>
         </Link>
         <Link href="/settings">
-          <Settings />
+          <Settings size={30}/>
         </Link>
       </div>
       <Sun />
