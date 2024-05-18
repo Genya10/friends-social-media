@@ -1,6 +1,7 @@
 .sidebar{
     height: 100%;
-    @apply flex items-center flex-col justify-between border-r-2 py-5;
+    @apply flex items-center flex-col justify-between border-r-2 
+           py-5 py-layout;
 
    a{
     @apply mb-5 block;

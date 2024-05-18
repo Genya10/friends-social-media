@@ -1,3 +1,5 @@
+'use client'
+
 import Image from "next/image";
 import { Sun, User2, Phone, MessageSquare, Settings } from "lucide-react";
 import cl from "./Sidebar.module.scss";
