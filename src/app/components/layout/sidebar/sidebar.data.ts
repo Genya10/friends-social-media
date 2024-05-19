@@ -1,4 +1,4 @@
-import { Sun, User2, Phone, MessageSquare, Settings } from "lucide-react";
+import { User2, Phone, MessageSquare, Settings } from "lucide-react";
 
 export const MENU = [
     {

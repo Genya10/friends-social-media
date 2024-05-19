@@ -7,6 +7,10 @@
     @apply mb-5 block;
    }
 
+   &.active > svg {
+    @apply text-white
+   }
+
    svg{
     @apply text-[#7c7275] duration-300 ease-in-out transition-colors;
     
