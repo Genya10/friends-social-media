@@ -1,5 +1,5 @@
 export default function ChatList(){
     return(
-        <div>ChatList</div>
+        <div className="p-layout">ChatList</div>
     )
 }

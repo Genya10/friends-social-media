@@ -5,10 +5,10 @@ import CurrentUser from "./components/screens/chats/CurrentUser";
 export default function ChatPage() {
 
   return (
-    <div className="grid" style={{
+    <div className="grid h-full" style={{
       gridTemplateColumns:'1fr 3fr'
     }}>
-      <div>
+      <div className="border-r border-border">
         <CurrentUser/>
         <ChatList/>
       </div>

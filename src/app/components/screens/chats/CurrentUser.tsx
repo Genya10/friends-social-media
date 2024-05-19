@@ -1,5 +1,5 @@
 export default function CurrentUser(){
     return(
-        <div>CurrentUser</div>
+        <div className="p-layout">CurrentUser</div>
     )
 }
