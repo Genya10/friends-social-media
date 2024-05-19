@@ -1,15 +1,16 @@
 "use client";
 
 import Image from "next/image";
-import { Sun, User2, Phone, MessageSquare, Settings } from "lucide-react";
+import { Sun } from "lucide-react";
 import cl from "./Sidebar.module.scss";
 import Link from "next/link";
 import { MENU } from "./sidebar.data";
 import cn from "clsx";
-import { getServerPathname } from "@/app/server-action/get-pathname";
+import { usePathname } from "next/navigation";
 
 export function Sidebar() {
-  const pathname = getServerPathname();
+  const pathname = usePathname();
+  console.log(pathname)
 
   return (
     <aside className={cl.sidebar}>
