@@ -2,9 +2,9 @@ import cn from "clsx";
 import { Eye, EyeOff } from "lucide-react";
 import { HTMLInputTypeAttribute, forwardRef, useState } from "react";
 import { TypeInputProps } from "./field.types";
-import cl from './Form.module.scss';
+import cl from './Field.module.scss';
 
-const Field = forwardRef<HTMLInputElement, TypeInputProps>(
+export const Field = forwardRef<HTMLInputElement, TypeInputProps>(
   ({ error, type: initialType, style, Icon, className, ...rest }, ref) => {
 
     return (
