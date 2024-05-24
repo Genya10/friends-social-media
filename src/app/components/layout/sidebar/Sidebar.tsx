@@ -8,6 +8,8 @@ import { MENU } from "./sidebar.data";
 import cn from "clsx";
 import { usePathname } from "next/navigation";
 
+const isLoggedIn = false
+
 export function Sidebar() {
   const pathname = usePathname();
   console.log(pathname)
