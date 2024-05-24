@@ -6,6 +6,10 @@ interface IAuth {
 
 export function Auth({type}:IAuth){
     return(
-        <div>Auth</div>
+        <div>
+            <form>
+                
+            </form>
+        </div>
     )
 }
