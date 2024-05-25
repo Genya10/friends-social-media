@@ -3,14 +3,14 @@ import { NO_INDEX_PAGE } from '../constants/seo.constants';
 import { Auth } from '../components/screens/auth/Auth';
 
 export const metadata:Metadata ={
-    title:'login',
+    title:'Login',
    ...NO_INDEX_PAGE
 }
 
 export default function LoginPage(){
     return(
         <div>
-         <Auth type='login'/>
+         <Auth type='Login'/>
         </div>
     )
 }

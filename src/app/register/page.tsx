@@ -10,7 +10,7 @@ export const metadata:Metadata ={
 export default function RegisterPage(){
     return(
         <div>
-         <Auth type='register'/>
+         <Auth type='Register'/>
         </div>
     )
 }

@@ -8,7 +8,7 @@ export const Field = forwardRef<HTMLInputElement, TypeInputProps>(
   ({ error, type: initialType, style, Icon, className, ...rest }, ref) => {
 
     return (
-     <div className={cn(cl.field,className)} style={style}>
+     <label className={cn(cl.field,className)} style={style}>
         {Icon && (
             <div className={cl.icon}>
                 <Icon/>
@@ -16,7 +16,7 @@ export const Field = forwardRef<HTMLInputElement, TypeInputProps>(
         )}
         <input ref={ref} {...rest}/>
        {error && <div className={cl.error}>{error.message}</div>}
-     </div>
+     </label>
     )
   }
 );

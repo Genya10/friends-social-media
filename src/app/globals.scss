@@ -5,6 +5,11 @@
 html, body {
   height: 100%;
   color: #ffffffcc;
-  background: linear-gradient(to top right, #0f0104,#14060dd8) #0f0104;        
+  background: linear-gradient(to top right, #0f0104,#14060dd8) #0f0104;    
+  position: relative;    
+}
+
+h1{
+  @apply text-4xl font-bold;
 }
 
