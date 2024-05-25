@@ -24,7 +24,7 @@ export function Auth({ type }: IAuth) {
           type="email"
           Icon={KeyRound}
           className="mb-12"
-          error={{message:'Wrong password', type:'min'}}
+          //error={{message:'Wrong password', type:'min'}}
         />
         <div className="text-center">
           <Button >{type}</Button>
