@@ -55,7 +55,7 @@ class FetchClient {
   ): Promise<T> {
     const url = `${this.API_URL}/${path}`;
 
-    const authorizationHeaders: HeadersInit = isAuth
+    const authorizationHeaders: HeadersInit = isAuth 
       ? { Authorization: `Bearer ${localStorage.getItem("token")}` }
       : {};
 
