@@ -76,13 +76,12 @@ class FetchClient {
       const data = await response.json();
 
       if (!response.ok) {
-        console.error("Fetch error:", data);
+       // console.error("Fetch error:", data);
         throw new Error("Fetch error:" + JSON.stringify(data));
       }
 
       return data;
     } catch (error) {
-      console.error("Fetch error:", error);
       throw error;
     }
   }

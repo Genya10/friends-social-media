@@ -18,17 +18,21 @@ export function Auth({ type }: IAuth) {
   });
 
   const onSubmit: SubmitHandler<IAuthFormState> = async (data) => {
-    if (type === "Login") {
-      const result = await signIn("credentials", {
-        redirect: false,
-        ...data,
-      });
-    } else {
-      await signIn("credentials", {
-        redirect: false,
-        username: getRandomFullName(),
-        ...data,
-      });
+    try {
+      if (type === "Login") {
+        const result = await signIn("credentials", {
+          redirect: false,
+          ...data,
+        });
+      } else {
+        await signIn("credentials", {
+          redirect: false,
+          username: getRandomFullName(),
+          ...data,
+        });
+      }
+    } catch (error) {
+      console.log((error as TypeError).message);
     }
   };
 
@@ -48,9 +52,9 @@ export function Auth({ type }: IAuth) {
         <Field
           {...register("password", {
             required: true,
-            minLength:{
-              value:6,
-              message:"Min lenght 6 symbols!"
+            minLength: {
+              value: 6,
+              message: "Min lenght 6 symbols!",
             },
           })}
           placeholder="Enter password:"
