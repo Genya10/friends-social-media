@@ -23,13 +23,13 @@ export default NextAuth({
         if (credentials.username) {
           try {
             const data = await $fetch.post<{ user: IUser; jwt: string }>(
-              `/auth/local/register`
+              `/auth/local/register`,
               //credentials
             );
             console.log("register", data);
           } catch (e) {
             console.error(e);
-            //throw new Error(e)
+            throw e;
           }
           return null;
         }
@@ -45,6 +45,7 @@ export default NextAuth({
           console.log("login", data);
         } catch (e) {
           console.error(e);
+          throw e;
         }
         return null;
         /*const data = await $fetch.get<IUser[]>(
@@ -58,3 +59,4 @@ export default NextAuth({
     },
   },
 });
+

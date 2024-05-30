@@ -53,7 +53,8 @@ class FetchClient {
     body?: Record<string, any>,
     headers?: Record<string, string>
   ): Promise<T> {
-    const url = `${this.API_URL}/${path}`;
+    const url = `${this.API_URL}${path}`;
+    console.log(url)
 
     const authorizationHeaders: HeadersInit = isAuth 
       ? { Authorization: `Bearer ${localStorage.getItem("token")}` }
