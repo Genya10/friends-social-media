@@ -6,6 +6,7 @@ import { Button } from "../ui/button/Button";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { IAuthFormState } from "./auth.types";
 import { signIn } from "next-auth/react";
+import { getRandomFullName } from "@/app/utils/get-random-full-name.util";
 
 interface IAuth {
   type?: "Login" | "Register";
@@ -25,7 +26,7 @@ export function Auth({ type }: IAuth) {
     } else {
       await signIn("credentials", {
         redirect: false,
-        username: "",
+        username: getRandomFullName(),
         ...data,
       });
     }
@@ -47,6 +48,10 @@ export function Auth({ type }: IAuth) {
         <Field
           {...register("password", {
             required: true,
+            minLength:{
+              value:6,
+              message:"Min lenght 6 symbols!"
+            },
           })}
           placeholder="Enter password:"
           type="password"

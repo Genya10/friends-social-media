@@ -21,20 +21,32 @@ export default NextAuth({
         if (!credentials?.email || !credentials.password) return null;
 
         if (credentials.username) {
-          const data = await $fetch.post<{ user: IUser; jwt: string }>(
-            `/auth/local/register` //credentials
-          );
-
-          console.log("register", data);
-
+          try {
+            const data = await $fetch.post<{ user: IUser; jwt: string }>(
+              `/auth/local/register`
+              //credentials
+            );
+            console.log("register", data);
+          } catch (e) {
+            console.error(e);
+            //throw new Error(e)
+          }
           return null;
         }
 
-        const data = await $fetch.post<{ user: IUser; jwt: string }>(
-          `/auth/local`
-        );
+        try {
+          const data = await $fetch.post<{ user: IUser; jwt: string }>(
+            `/auth/local`
+            /* {
+            identifier:credentials.email,
+            password:credentials.password
+          }*/
+          );
+          console.log("login", data);
+        } catch (e) {
+          console.error(e);
+        }
         return null;
-
         /*const data = await $fetch.get<IUser[]>(
                 `/users?filters[email][$eq]=${credentials?.email}`)*/
       },
