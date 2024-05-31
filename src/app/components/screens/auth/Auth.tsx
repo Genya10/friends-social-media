@@ -8,6 +8,8 @@ import { IAuthFormState } from "./auth.types";
 import { signIn } from "next-auth/react";
 import { getRandomFullName } from "@/app/utils/get-random-full-name.util";
 import { toast } from "react-hot-toast";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 interface IAuth {
   type?: "Login" | "Register";
@@ -15,12 +17,16 @@ interface IAuth {
 
 // Компонент Auth для отображения формы аутентификации
 export function Auth({ type }: IAuth) {
+  const [isLoading, setIsLoading] = useState(false)
   // Использование хука useForm для управления состоянием формы
   const { register } = useForm<IAuthFormState>({
     mode: "onChange",
   });
 
+  const {push} = useRouter()
+
   const onSubmit: SubmitHandler<IAuthFormState> = async (data) => {
+    setIsLoading(true)
     // Вызов функции signIn для аутентификации пользователя
     const response = await signIn(
       "credentials",
@@ -37,9 +43,15 @@ export function Auth({ type }: IAuth) {
     );
     // Проверка на наличие ошибок в ответе
     if (response?.error) {
-      toast.error("response.error");
+      toast.error(response.error);
+      setIsLoading(false)
+      return
     }
+    setIsLoading(false)
+    push('/')
   };
+
+  
 
   // Рендеринг формы аутентификации
   return (
@@ -69,7 +81,7 @@ export function Auth({ type }: IAuth) {
           className="mb-12"
         />
         <div className="text-center">
-          <Button type="submit">{type}</Button>
+          <Button isLoading={isLoading} disabled={isLoading} type="submit">{type}</Button>
         </div>
       </form>
     </div>

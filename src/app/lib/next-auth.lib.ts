@@ -2,6 +2,7 @@ import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { $fetch } from "@/api/api.fetch";
 import { IUser } from "@/app/types/user.types";
+import { UserJwt } from "@/app/types/user.types";
 
 export default NextAuth({
   providers: [
@@ -17,18 +18,18 @@ export default NextAuth({
       },
 
       // Функция авторизации пользователя
-      async authorize(credentials) {
+      async authorize(credentials):Promise<UserJwt | null> {
         if (!credentials?.email || !credentials.password) return null;
 
         if (credentials.username) {
           // Если предоставлено имя пользователя, выполняется регистрация
           try {
-            const data = await $fetch.post<{ user: IUser; jwt: string }>(
-              `/auth/local/register`
-              // credentials
+            const {jwt,user} = await $fetch.post<UserJwt>(
+              `/auth/local/register`,
+               //credentials
             );
-            console.log("register", data); // Логируем результат регистрации
-            return null; // Возвращаем null после успешной регистрации
+           // return {...user,jwt}; 
+           return null
           } catch (e) {
             return Promise.reject({
               message: "Register error,not valid data", // Ошибка при регистрации
@@ -38,15 +39,15 @@ export default NextAuth({
 
         try {
           // Если имя пользователя не предоставлено, выполняется логин
-          const data = await $fetch.post<{ user: IUser; jwt: string }>(
-            `/auth/local`
-            /* {
+          const {jwt,user} = await $fetch.post<UserJwt>(
+            `/auth/local`,
+             /*{
             identifier:credentials.email,
             password:credentials.password
           }*/
           );
-          console.log("login", data);
-          return null;
+         // return {...user,jwt};
+         return null
         } catch (e) {
           return Promise.reject({
             message: "Login error,not valid data",
@@ -62,3 +63,5 @@ export default NextAuth({
     },
   },
 });
+
+
