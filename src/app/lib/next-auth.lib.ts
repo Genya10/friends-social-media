@@ -1,4 +1,3 @@
-import { IAuthFormState } from "@/app/components/screens/auth/auth.types";
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { $fetch } from "@/api/api.fetch";
@@ -17,24 +16,28 @@ export default NextAuth({
         password: { type: "password" },
       },
 
+      // Функция авторизации пользователя
       async authorize(credentials) {
         if (!credentials?.email || !credentials.password) return null;
 
         if (credentials.username) {
+          // Если предоставлено имя пользователя, выполняется регистрация
           try {
             const data = await $fetch.post<{ user: IUser; jwt: string }>(
-              `/auth/local/register`,
-              //credentials
+              `/auth/local/register`
+              // credentials
             );
-            console.log("register", data);
+            console.log("register", data); // Логируем результат регистрации
+            return null; // Возвращаем null после успешной регистрации
           } catch (e) {
-            console.error(e);
-            throw e;
+            return Promise.reject({
+              message: "Register error,not valid data", // Ошибка при регистрации
+            });
           }
-          return null;
         }
 
         try {
+          // Если имя пользователя не предоставлено, выполняется логин
           const data = await $fetch.post<{ user: IUser; jwt: string }>(
             `/auth/local`
             /* {
@@ -43,20 +46,19 @@ export default NextAuth({
           }*/
           );
           console.log("login", data);
+          return null;
         } catch (e) {
-          console.error(e);
-          throw e;
+          return Promise.reject({
+            message: "Login error,not valid data",
+          });
         }
-        return null;
-        /*const data = await $fetch.get<IUser[]>(
-                `/users?filters[email][$eq]=${credentials?.email}`)*/
       },
     }),
   ],
   callbacks: {
+    // Колбэк для управления сессией
     session({ session, token, user }) {
       return session;
     },
   },
 });
-
