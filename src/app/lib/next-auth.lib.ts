@@ -3,6 +3,7 @@ import Credentials from "next-auth/providers/credentials";
 import { $fetch } from "@/api/api.fetch";
 import { UserJwt } from "@/app/types/user.types";
 import { User } from "../types/next-auth";
+import { IUser } from "@/app/types/user.types";
 
 export default NextAuth({
   providers: [
@@ -24,9 +25,9 @@ export default NextAuth({
         if (credentials.username) {
           // Если предоставлено имя пользователя, выполняется регистрация
           try {
-            const data = await $fetch.post<UserJwt>(
+            const data = await $fetch.post<{user:IUser,jwt:string }>(
               `/auth/local/register`,
-               //credentials
+               credentials
             );
    
            return {
@@ -45,12 +46,12 @@ export default NextAuth({
 
         try {
           // Если имя пользователя не предоставлено, выполняется логин
-          const data = await $fetch.post<UserJwt>(
+          const data = await $fetch.post<{user:IUser,jwt:string }>(
             `/auth/local`,
-             /*{
+             {
             identifier:credentials.email,
             password:credentials.password
-          }*/
+          }
           )
 
          return {
@@ -63,7 +64,7 @@ export default NextAuth({
         } catch (e) {
           return Promise.reject({
             message: "Login error,not valid data",
-          });
+          })
         }
       },
     }),
