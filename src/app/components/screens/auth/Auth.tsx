@@ -5,7 +5,7 @@ import { AtSign, KeyRound } from "lucide-react";
 import { Button } from "../ui/button/Button";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { IAuthFormState } from "./auth.types";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { getRandomFullName } from "@/app/utils/get-random-full-name.util";
 import { toast } from "react-hot-toast";
 import { useState } from "react";
@@ -24,6 +24,7 @@ export function Auth({ type }: IAuth) {
   });
 
   const {push} = useRouter()
+  //const {data:{user}} = useSession()
 
   const onSubmit: SubmitHandler<IAuthFormState> = async (data) => {
     setIsLoading(true)
