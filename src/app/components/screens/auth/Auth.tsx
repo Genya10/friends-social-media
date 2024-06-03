@@ -5,7 +5,7 @@ import { AtSign, KeyRound } from "lucide-react";
 import { Button } from "../ui/button/Button";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { IAuthFormState } from "./auth.types";
-import { signIn, useSession } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import { getRandomFullName } from "@/app/utils/get-random-full-name.util";
 import { toast } from "react-hot-toast";
 import { useState } from "react";
@@ -19,7 +19,7 @@ interface IAuth {
 export function Auth({ type }: IAuth) {
   const [isLoading, setIsLoading] = useState(false)
   // Использование хука useForm для управления состоянием формы
-  const { register } = useForm<IAuthFormState>({
+  const { register, handleSubmit } = useForm<IAuthFormState>({
     mode: "onChange",
   });
 
@@ -57,7 +57,9 @@ export function Auth({ type }: IAuth) {
   // Рендеринг формы аутентификации
   return (
     <div className="flex w-screen h-full">
-      <form className="m-auto block w-96 border border-border p-8">
+      <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="m-auto block w-96 border border-border p-8">
         <h1 className="text-center mb-10">{type}</h1>
         <Field
           {...register("email", {

@@ -19,7 +19,7 @@ export default function AuthProvider({children}:
         useEffect(()=>{
             if(pathname !== '/login' && pathname !== '/register'){
               const isLoggedIn = !!window.localStorage.getItem('token')
-              if(!isLoggedIn) return router.push('/login')
+              //if(!isLoggedIn) return router.push('/login')
             }
         },[pathname,isLoggedIn])
 

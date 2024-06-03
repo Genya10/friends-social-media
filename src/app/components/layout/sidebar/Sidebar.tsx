@@ -7,15 +7,16 @@ import Link from "next/link";
 import { MENU } from "./sidebar.data";
 import cn from "clsx";
 import { usePathname } from "next/navigation";
+import { useAuth } from "@/app/hooks/useAuth";
 
 const isLoggedIn = false
 
 export function Sidebar() {
   const pathname = usePathname();
-  console.log(pathname)
+  const {isLoggedIn} = useAuth();
 
   return (
-    <aside className={cl.sidebar}>
+    <aside className={cl.sidebar}>     
       <Image
         src="/linear-icon.svg"
         priority

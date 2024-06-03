@@ -15,5 +15,5 @@ export function getRandomFullName(): string{
 }
 
 // Пример использования
-const randomFullName = getRandomFullName();
-console.log(randomFullName);
+//const randomFullName = getRandomFullName();
+//console.log(randomFullName);
