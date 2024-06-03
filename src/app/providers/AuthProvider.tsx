@@ -2,8 +2,7 @@
 
 import { useAuth } from "../hooks/useAuth";
 import { useEffect, type PropsWithChildren } from "react";
-import { usePathname } from "next/navigation";
-import { useRouter } from "next/router";
+import { usePathname, useRouter  } from "next/navigation";
 
 export default function AuthProvider({children}: 
     PropsWithChildren<unknown>){
@@ -20,7 +19,7 @@ export default function AuthProvider({children}:
         useEffect(()=>{
             if(pathname !== '/login' && pathname !== '/register'){
               const isLoggedIn = !!window.localStorage.getItem('token')
-              if(!isLoggedIn) router.push('login')
+              if(!isLoggedIn) return router.push('/login')
             }
         },[pathname,isLoggedIn])
 
