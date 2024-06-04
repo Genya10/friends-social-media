@@ -4,9 +4,19 @@ import { useAuth } from '@/app/hooks/useAuth';
 import {IChat} from '../../../../types/chat.types';
 import {IUser} from '../../../../types/user.types';
 import Image from 'next/image';
+import { useQuery } from '@tanstack/react-query/build/legacy/useQuery';
+import { $fetch } from '@/api/api.fetch';
 
-export function ChatListItem({participants, messages}:IChat){
+export function ChatListItem({id}:IChat){
     const {user} = useAuth()
+
+    const {data, isLoading} = useQuery({
+      queryKey:['chats', id],
+      queryFn:()=> $fetch.get<{chat:IChat}>(`/chats/1?populate=*`,
+      true),
+      enabled:!!id
+    })
+
     const correspondent = participants.find(us => us.email !== user?.email)
     const lastMessage = messages.at(-1)
 

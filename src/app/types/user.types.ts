@@ -1,3 +1,5 @@
+import {IChat} from './chat.types';
+
 export interface IUser{
     username: string,
     email: string,
@@ -9,4 +11,8 @@ export interface IUser{
 export type UserJwt = {
     user:IUser
     jwt:string
+}
+
+export interface IResponsiveFullUser extends IUser {
+    chats: IChat[]
 }

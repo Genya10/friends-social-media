@@ -7,11 +7,19 @@ import { IChat } from '../../../types/chat.types';
 import { useQuery } from "@tanstack/react-query";
 import { ChatListItem } from "./list/ChatListItem";
 import { Loader } from "../ui/loader/Loader";
+import { IResponsiveFullUser, IUser } from "@/app/types/user.types";
+import { useAuth } from "@/app/hooks/useAuth";
 
 export default function ChatList(){
+  const { user, isLoggedIn} = useAuth();
+
   const { data, isLoading } = useQuery({
     queryKey:['chats'],
-    queryFn:()=> $fetch.get<{data:IChat[]}>('/chats', true)
+    queryFn:()=> $fetch.get<{data:IChat[]}>(
+          `/chats?sort[0]=createAt:desc&populate[messages]
+          =*&populate[participants]=*&filters[participants][email][$eq]=${user?.email}`, 
+           true),
+           enabled:isLoggedIn,
   })
   console.log(data)
 
