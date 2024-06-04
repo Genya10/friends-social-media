@@ -13,10 +13,10 @@ export function ChatListItem({participants, messages}:IChat){
     return (
     <div className="p-layout flex item-center">
       <Image src={correspondent?.avatar || '/no-avatar.png'}
-            alt={correspondent?.email || ''}
-            width={45}
-            height={45}
-            className='mr-4'
+             alt={correspondent?.email || ''}
+             width={45}
+             height={45}
+             className='mr-4'
         />
         <div className="text-sm">
             <div>
