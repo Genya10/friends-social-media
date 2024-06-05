@@ -13,6 +13,3 @@ export type UserJwt = {
     jwt:string
 }
 
-export interface IResponsiveFullUser extends IUser {
-    chats: IChat[]
-}
