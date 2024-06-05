@@ -13,7 +13,14 @@ export interface IChat {
   participants: IUser[];
 }
 
-export interface IResponsiveChats {
-  attributes: IChat;
+export interface IStrapiResponsive<T> {
+  attributes: T;
   id: number;
 }
+
+export interface IStrapiChat {
+  messages: { data: IStrapiResponsive<IMessage>[] };
+  participants: { data: IStrapiResponsive<IUser>[] };
+}
+
+

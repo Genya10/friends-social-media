@@ -3,12 +3,12 @@
 import { Field } from "../ui/field/Field";
 import { Search } from "lucide-react";
 import { $fetch } from "@/api/api.fetch";
-import { IChat } from "../../../types/chat.types";
+import { IStrapiChat } from "../../../types/chat.types";
 import { useQuery } from "@tanstack/react-query";
 import { ChatListItem } from "./list/ChatListItem";
 import { Loader } from "../ui/loader/Loader";
 import { IUser } from "@/app/types/user.types";
-import { IResponsiveChats } from "@/app/types/chat.types";
+import { IStrapiResponsive } from "@/app/types/chat.types";
 import { useAuth } from "@/app/hooks/useAuth";
 
 export default function ChatList() {
@@ -17,7 +17,7 @@ export default function ChatList() {
   const { data, isLoading } = useQuery({
     queryKey: ["chats"],
     queryFn: () =>
-      $fetch.get<{ data: IResponsiveChats[] }>(
+      $fetch.get<{ data: IStrapiResponsive<IStrapiChat>[] }>(
         `/chats?sort=createAt:desc&populate[messages]
           =*&populate[participants]=*&filters[participants][email][$eq]=${user?.email}`,
         true
@@ -39,7 +39,7 @@ export default function ChatList() {
         ) : data?.data.length ? (
           data?.data.map(({ id, attributes: chat }) => {
             console.log("chat", chat);
-            return <ChatListItem key={chat.id} data={chat} />;
+            return <ChatListItem key={id} data={chat} id={id} />;
           })
         ) : (
           <p className="p-layout">Chats not found!</p>

@@ -1,4 +1,3 @@
-import {IChat} from './chat.types';
 
 export interface IUser{
     username: string,

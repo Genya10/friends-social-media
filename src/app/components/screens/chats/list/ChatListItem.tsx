@@ -1,40 +1,46 @@
 "use client";
 
 import { useAuth } from "@/app/hooks/useAuth";
-import { IChat } from "../../../../types/chat.types";
-import { IUser } from "../../../../types/user.types";
 import Image from "next/image";
-import { useQuery } from "@tanstack/react-query/build/legacy/useQuery";
-import { $fetch } from "@/api/api.fetch";
+import { IStrapiChat } from "../../../../types/chat.types";
+import dayjs from "dayjs";
+import Link from "next/link";
 
 interface IChatListItem {
-  data: IChat;
+  id: number;
+  data: IStrapiChat;
 }
 
-export function ChatListItem({ data: chat }: IChatListItem) {
+export function ChatListItem({ data: chat, id }: IChatListItem) {
   const { user } = useAuth();
 
-  const correspondent = chat.participants.find(
-    (us) => us.email !== user?.email
+  const correspondent = chat.participants.data.find(
+    (us) => us.attributes.email !== user?.email
   );
-  const lastMessage = chat.messages.at(-1);
+  const lastMessage = chat.messages.data.at(-1);
 
   return (
-    <div className="p-layout flex item-center">
+    <Link
+      href={`/chat/${id}`}
+      className="p-layout flex item-center border-b border-border
+                duration-300 ease-linear transition-colors hover:bg-border"
+    >
       <Image
-        src={correspondent?.avatar || "/no-avatar.png"}
-        alt={correspondent?.email || ""}
+        src={correspondent?.attributes.avatar || "/no-avatar.png"}
+        alt={correspondent?.attributes.email || ""}
         width={45}
         height={45}
         className="mr-4"
       />
       <div className="text-sm">
-        <div>
-          <span>{correspondent?.username}</span>
-          <span>{lastMessage?.createAt}</span>
+        <div className="flex items-center">
+          <span>{correspondent?.attributes.username}</span>
+          <span className="text-xs opacity-30">
+            {dayjs(lastMessage?.attributes.createAt).format("HH:mm")}
+          </span>
         </div>
-        <div className="opacity-30">{lastMessage?.text}</div>
+        <div className="opacity-30 mt-0.5">{lastMessage?.attributes.text}</div>
       </div>
-    </div>
+    </Link>
   );
 }

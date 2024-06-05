@@ -8,6 +8,7 @@ export default function CurrentUser(){
 
     return(
         <div className="p-layout flex item-center">
+         <div className="flex item-center">
             <Image src={user?.avatar || '/no-avatar.png'}
                    alt={user?.email || ''}
                    width={50}
@@ -18,6 +19,7 @@ export default function CurrentUser(){
                   <div>{user?.username}</div>
                   <div className="opacity-40">UI/UX Desigh</div>
                 </div>        
+         </div>
         </div>
     )
 }
