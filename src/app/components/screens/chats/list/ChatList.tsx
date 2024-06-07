@@ -1,12 +1,12 @@
 "use client";
 
-import { Field } from "../ui/field/Field";
+import { Field } from "../../ui/field/Field";
 import { Search } from "lucide-react";
 import { $fetch } from "@/api/api.fetch";
-import { IStrapiChat } from "../../../types/chat.types";
+import { IStrapiChat } from "../../../../types/chat.types";
 import { useQuery } from "@tanstack/react-query";
-import { ChatListItem } from "./list/ChatListItem";
-import { Loader } from "../ui/loader/Loader";
+import { ChatListItem } from "./ChatListItem";
+import { Loader } from "../../ui/loader/Loader";
 import { useAuth } from "@/app/hooks/useAuth";
 import { useState } from "react";
 import { useDebounce } from "@/app/hooks/useDebounce";
