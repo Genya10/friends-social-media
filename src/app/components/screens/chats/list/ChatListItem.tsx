@@ -23,7 +23,8 @@ export function ChatListItem({ chat: chat, chat:id}: IChatListItem) {
     <Link
       href={`/chat/${id}`}
       className="p-layout flex item-center border-b border-border
-                duration-300 ease-linear transition-colors hover:bg-border"
+                duration-300 ease-linear transition-colors 
+                hover:bg-border hover:bg-border animation-slide-fade"
     >
       <Image
         src={
