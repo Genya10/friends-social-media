@@ -33,7 +33,7 @@ export default NextAuth({
            return {
             id:data.user.email,
             email:data.user.email,
-            avatar:data.user.avatar?.,
+            avatar:data.user.avatar?.data,
             username:data.user.username,
             jwt:data.jwt
            } as User
@@ -57,7 +57,7 @@ export default NextAuth({
          return {
           id:data.user.email,
           email:data.user.email,
-          avatar:data.user.avatar?.,
+          avatar:data.user.avatar?.data,
           username:data.user.username,
           jwt:data.jwt
          } as User

@@ -7,8 +7,6 @@ import { IStrapiChat } from "../../../types/chat.types";
 import { useQuery } from "@tanstack/react-query";
 import { ChatListItem } from "./list/ChatListItem";
 import { Loader } from "../ui/loader/Loader";
-import { IUser } from "@/app/types/user.types";
-import { IStrapiResponsive } from "@/app/types/chat.types";
 import { useAuth } from "@/app/hooks/useAuth";
 
 export default function ChatList() {
@@ -17,9 +15,11 @@ export default function ChatList() {
   const { data, isLoading } = useQuery({
     queryKey: ["chats"],
     queryFn: () =>
-      $fetch.get<{ data: IStrapiResponsive<IStrapiChat>[] }>(
-        `/chats?sort=createAt:desc&populate[messages]
-          =*&populate[participants]=*&filters[participants][email][$eq]=${user?.email}`,
+      $fetch.get<{ data: IStrapiChat[] }>(
+        `/chats?sort=createAt:desc
+        &populate[messages]=*
+        &populate[participants][populate][avatar]=*
+        &filters[participants][email][$eq]=${user?.email}`,
         true
       ),
     enabled: isLoggedIn,
@@ -37,9 +37,9 @@ export default function ChatList() {
             <Loader />
           </div>
         ) : data?.data.length ? (
-          data?.data.map(({ id, attributes: chat }) => {
+          data?.data.map(chat => {
             console.log("chat", chat);
-            return <ChatListItem key={id} data={chat} id={id} />;
+            return <ChatListItem key={chat.id} chat={chat} />;
           })
         ) : (
           <p className="p-layout">Chats not found!</p>

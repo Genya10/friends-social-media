@@ -8,15 +8,14 @@ import Link from "next/link";
 import { getImageUrl } from "@/app/config/get-image-url.config";
 
 interface IChatListItem {
-  id: number;
-  data: IStrapiChat;
+  chat: IStrapiChat;
 }
 
-export function ChatListItem({ data: chat, id }: IChatListItem) {
+export function ChatListItem({ chat: chat, chat:id}: IChatListItem) {
   const { user } = useAuth();
 
   const correspondent = chat.participants.data.find(
-    (us) => us.attributes.email !== user?.email
+    (us) => us.email !== user?.email
   );
   const lastMessage = chat.messages.data.at(-1);
 
@@ -28,21 +27,21 @@ export function ChatListItem({ data: chat, id }: IChatListItem) {
     >
       <Image
         src={
-          getImageUrl(correspondent?.attributes.avatar.data.attributes.url)
+          getImageUrl(correspondent?.avatar.data.attributes.url)
              || "/no-avatar.png"}
-        alt={correspondent?.attributes.email || ""}
+        alt={correspondent?.email || ""}
         width={45}
         height={45}
         className="mr-4"
       />
       <div className="text-sm">
         <div className="flex items-center">
-          <span>{correspondent?.attributes.username}</span>
+          <span>{correspondent?.username}</span>
           <span className="text-xs opacity-30">
-            {dayjs(lastMessage?.attributes.createAt).format("HH:mm")}
+            {dayjs(lastMessage?.createAt).format("HH:mm")}
           </span>
         </div>
-        <div className="opacity-30 mt-0.5">{lastMessage?.attributes.text}</div>
+        <div className="opacity-30 mt-0.5">{lastMessage?.text}</div>
       </div>
     </Link>
   );
