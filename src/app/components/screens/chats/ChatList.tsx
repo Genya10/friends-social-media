@@ -8,9 +8,13 @@ import { useQuery } from "@tanstack/react-query";
 import { ChatListItem } from "./list/ChatListItem";
 import { Loader } from "../ui/loader/Loader";
 import { useAuth } from "@/app/hooks/useAuth";
+import { useState } from "react";
+import { useDebounce } from "@/app/hooks/useDebounce";
 
 export default function ChatList() {
   const { user, isLoggedIn } = useAuth();
+  const [searchTerm, setSearchTerm] = useState('');
+  const debouncedSearchTerm = useDebounce(searchTerm)
 
   const { data, isLoading } = useQuery({
     queryKey: ["chats"],
@@ -19,7 +23,9 @@ export default function ChatList() {
         `/chats?sort=createAt:desc
         &populate[messages]=*
         &populate[participants][populate][avatar]=*
-        &filters[participants][email][$eq]=${user?.email}`,
+        &filters[participants][email][$eq]=${user?.email}
+        &filters[participants][username][$contains]=${debouncedSearchTerm}
+        &filters[messages][text][$contains]=${debouncedSearchTerm}`,
         true
       ),
     enabled: isLoggedIn,
@@ -29,7 +35,8 @@ export default function ChatList() {
   return (
     <div>
       <div className="border-t border-b border-border p-layout">
-        <Field placeholder="Search chats" Icon={Search} />
+        <Field placeholder="Search chats" Icon={Search} value=
+        {searchTerm} onChange={e => setSearchTerm(e.target.value)}/>
       </div>
       <div>
         {isLoading ? (
