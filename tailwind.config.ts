@@ -14,9 +14,16 @@ const config: Config = {
       },
       padding:{
         layout:'1.25rem'
+      },
+      transitionDuration:{
+        DEFAULT:'444ms'
+      },
+      transitionTimingFunction:{
+        DEFAULT:'ease-linear'
       }
     },
   },
   plugins: [],
 };
+
 export default config;
