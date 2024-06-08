@@ -10,6 +10,7 @@ export function MessageField({sendMessage}:IMessageField){
    const [message, setMessage] = useState('');
 
    const onSubmit = () => {
+    if(!message) return
      message && sendMessage(message)
    }
 

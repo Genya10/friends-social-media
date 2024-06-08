@@ -1,12 +1,13 @@
-import { IStrapiResponsive } from './chat.types';
+
 
 export interface IUser {
+    id: number
     username: string,
     email: string,
     confirmed: boolean,
     role: string,
     avatar: {
-        data: IStrapiResponsive<{url:string}>
+        url:string
     }
 }
 

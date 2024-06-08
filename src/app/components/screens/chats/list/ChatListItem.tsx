@@ -28,7 +28,7 @@ export function ChatListItem({ chat: chat, chat:id}: IChatListItem) {
     >
       <Image
         src={
-          getImageUrl(correspondent?.avatar.data.attributes.url)
+          getImageUrl(correspondent?.avatar.url)
              || "/no-avatar.png"}
         alt={correspondent?.email || ""}
         width={45}
