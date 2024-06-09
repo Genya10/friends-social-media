@@ -8,7 +8,7 @@ export interface IUser {
     role: string,
     avatar: {
         url:string
-    }
+    } | null
 }
 
 export type UserJwt = {

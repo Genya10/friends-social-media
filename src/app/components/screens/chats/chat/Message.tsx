@@ -2,6 +2,7 @@ import { IMessage } from "@/app/types/chat.types";
 import Image from "next/image";
 import { useAuth } from "@/app/hooks/useAuth";
 import dayjs from "dayjs";
+import { getImageUrl } from "@/app/config/get-image-url.config";
 
 export function Message({ message }: { message: IMessage }) {
   const { user } = useAuth();
@@ -17,7 +18,7 @@ export function Message({ message }: { message: IMessage }) {
         }`}
       >
         <Image
-          src={message.sender.avatar.url}
+          src={getImageUrl(message.sender.avatar?.url) || "/no-avatar.png"}
           alt="Avatar"
           className="rounded-full"
           width={45}
