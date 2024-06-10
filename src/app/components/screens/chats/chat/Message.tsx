@@ -24,16 +24,16 @@ export function Message({ message }: { message: IMessage }) {
           width={45}
           height={45}
         />
-        <div
-          className={isSender ? 'mr-3' : 'ml-3'}>       
-            <div 
+        <div className={isSender ? "mr-3" : "ml-3"}>
+          <div
             className={`text-sm text-white py-1 mt-2 px-3 rounded-2xl ${
-              isSender 
-              ? 'rounded-tr-none bg-primary'
-              : 'rounded-tl-none bg-border'
-            }`}>
+              isSender
+                ? "rounded-tr-none bg-primary"
+                : "rounded-tl-none bg-border"
+            }`}
+          >
             {message.text}
-            </div>
+          </div>
           <div className="text-xs opacity-30 block mt-1 text-right">
             {dayjs(message.createAt).format("HH:mm")}
           </div>
