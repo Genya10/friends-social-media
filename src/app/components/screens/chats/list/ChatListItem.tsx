@@ -28,12 +28,11 @@ export function ChatListItem({ chat: chat, chat:id}: IChatListItem) {
     >
       <Image
         src={
-          getImageUrl(correspondent?.avatar.url)
-             || "/no-avatar.png"}
-        alt={correspondent?.email || ""}
-        width={45}
-        height={45}
-        className="mr-4"
+          getImageUrl(correspondent?.avatar?.url) || "/no-avatar.png"}           
+          alt={correspondent?.email || ""}
+          width={45}
+          height={45}
+          className="mr-4"
       />
       <div className="text-sm">
         <div className="flex items-center">

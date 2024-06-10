@@ -28,9 +28,14 @@ export default function Chat({ id }: { id: string }) {
   const correspondent = data?.participants.find((u) => u.email !== user?.email);
 
   return (
-    <div className="w-8/12 border-r border-border h-full">
+    <div className="w-8/12 border-r border-border h-full grid" 
+    style={{
+      gridTemplateRows: isLoading ? '1fr .08fr' : '.6fr 6fr 6fr',
+    }}>
       {isLoading ? (
-        <Loader />
+        <div className="flex items-center justify-center">
+          <Loader />
+        </div>        
       ) : (
         <>
           <ChatHeader correspondent={correspondent} />

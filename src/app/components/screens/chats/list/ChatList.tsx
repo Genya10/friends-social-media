@@ -16,8 +16,8 @@ export default function ChatList() {
   const [searchTerm, setSearchTerm] = useState('');
   const debouncedSearchTerm = useDebounce(searchTerm)
 
-  const { data, isLoading } = useQuery({
-    queryKey: ["chats"],
+  const { data, isLoading, isFetching } = useQuery({
+    queryKey: ["chats", debouncedSearchTerm],
     queryFn: () =>
       $fetch.get<{ data: IStrapiChat[] }>(
         `/chats?sort=createAt:desc
@@ -39,7 +39,7 @@ export default function ChatList() {
         {searchTerm} onChange={e => setSearchTerm(e.target.value)}/>
       </div>
       <div>
-        {isLoading ? (
+        {isLoading || isFetching ? (
           <div className="p-layout">
             <Loader />
           </div>

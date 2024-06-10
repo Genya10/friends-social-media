@@ -3,8 +3,7 @@
 @tailwind utilities;
 
 html, body {
-  height: 100%;
-  color: #ffffffcc;
+  color: #efefef;
   background: linear-gradient(to top right, #0f0104,#14060dd8) #0f0104;    
   position: relative;    
 }
@@ -14,10 +13,10 @@ h1{
 }
 
 .animation-slide-fade {
-  animation : slideFade .4s;
+  animation : slideFade .7s;
 }
 
-@keyframes slideFade{
+@keyframes slideFade {
   from{
     transform: translateY(-22px);
     opacity: 0.4;

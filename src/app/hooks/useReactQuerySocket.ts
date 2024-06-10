@@ -16,7 +16,7 @@ interface UpdateData {
   [key: string]: any;
 }
 
-const useReactQuerySocket = () => {
+export const useReactQuerySocket = () => {
   const queryClient = useQueryClient();
 
   const socket = useRef<Socket>();// Создаем ref для хранения сокета
@@ -58,7 +58,7 @@ const useReactQuerySocket = () => {
 
   // Функция для отправки сообщений на сервер
   const send = (input: WebSocketEvent) => {
-    socket.current?.emit("client-message", input);
+    socket.current?.emit("invalidate", input);
   };
   return send; //Возвращаем функцию для отправки сообщений
 };
