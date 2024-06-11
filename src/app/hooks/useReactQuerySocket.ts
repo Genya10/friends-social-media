@@ -26,7 +26,7 @@ export const useReactQuerySocket = () => {
     socket.current = io(process.env.BACK_URL as string);// Используем URL сервера из переменной окружения
     // Логируем сообщение при успешном подключении
     socket.current.on("connect", () => {
-      console.log("connected tosocket.io server");
+      console.log("connected to socket.io server");
     });
     // Обрабатываем событие "server-message" от сервера
     socket.current.on("server-message", (data: WebSocketEvent) => {
@@ -58,7 +58,7 @@ export const useReactQuerySocket = () => {
 
   // Функция для отправки сообщений на сервер
   const send = (input: WebSocketEvent) => {
-    socket.current?.emit("invalidate", input);
+    socket.current?.emit("client-message", input);
   };
   return send; //Возвращаем функцию для отправки сообщений
 };

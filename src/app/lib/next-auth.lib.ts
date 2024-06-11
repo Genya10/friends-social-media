@@ -1,7 +1,6 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { $fetch } from "@/api/api.fetch";
-import { UserJwt } from "@/app/types/user.types";
 import { User } from "../types/next-auth";
 import { IUser } from "@/app/types/user.types";
 
@@ -31,9 +30,9 @@ export default NextAuth({
             );
    
            return {
-            id:data.user.email,
+            id:data.user.id.toString(),
             email:data.user.email,
-            avatar:data.user.avatar?.data,
+            avatar:data.user.avatar?.url,
             username:data.user.username,
             jwt:data.jwt
            } as User
@@ -57,7 +56,7 @@ export default NextAuth({
          return {
           id:data.user.email,
           email:data.user.email,
-          avatar:data.user.avatar?.data,
+          avatar:data.user.avatar?.url,
           username:data.user.username,
           jwt:data.jwt
          } as User

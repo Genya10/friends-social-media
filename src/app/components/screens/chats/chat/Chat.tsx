@@ -48,7 +48,6 @@ export default function Chat({ id }: { id: string }) {
           </div>
         </>
       )}
-      {/**@ts-ignore */}
       <MessageField />
     </div>
   );

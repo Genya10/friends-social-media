@@ -10,27 +10,28 @@ import { useAuth } from "@/app/hooks/useAuth";
 import { useMutation } from "@tanstack/react-query";
 import { $fetch } from "@/api/api.fetch";
 
-export function MessageField({ sendMessage }: IMessageField) {
+export function MessageField() {
   const [message, setMessage] = useState("");
   const send = useReactQuerySocket();
   const { id } = useParams();
   const { user } = useAuth();
 
-  const {} = useMutation({
+  const { mutate } = useMutation({
     mutationKey: ["update chat", id],
     mutationFn: () =>
       $fetch.post("/messages", {
         data: {
           text: message,
           sender: user?.id,
+          chat: id
         },
-      }),
+      }, true ),
     onSuccess() {
+      setMessage('')
       send({
         operation: "invalidate",
         entity: "chat",
         id: id.toString(),
-        payload: { title: "My 5th post" },
       });
     },
   });
@@ -42,7 +43,7 @@ export function MessageField({ sendMessage }: IMessageField) {
   return (
     <div
       className="border-t border-border p-layout
-                    flex-items-center justify-between"
+                    flex items-center justify-between"
     >
       <Field
         placeholder="Write a message ..."
