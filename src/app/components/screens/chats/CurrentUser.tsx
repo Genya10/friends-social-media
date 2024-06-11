@@ -5,21 +5,27 @@ import { signOut } from "next-auth/react";
 import Image from 'next/image';
 import { LogOut } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useProfile } from "@/app/hooks/useProfile";
+import { Loader } from "../ui/loader/Loader";
 
 export default function CurrentUser(){
     const { user } = useAuth()
     const {push} = useRouter()
+    const { data, isLoading} = useProfile()
 
     return(
         <div className="p-layout flex item-center justify-between">
          <div className="flex item-center">
-            <Image src={user?.avatar || '/no-avatar.png'}
+            {isLoading ? <Loader/>
+            :  <Image 
+                   src={data?.avatar?.url || '/no-avatar.png'}
                    alt={user?.email || ''}
                    width={50}
                    height={50}
                    className='mr-4'
                    priority
-                />
+               />}
+
                 <div className="text-sm">
                   <div>{user?.username}</div>
                   <div className="opacity-40">UI/UX Desigh</div>
