@@ -50,6 +50,9 @@ export function MessageField() {
         Icon={ArrowRightToLine}
         value={message}
         onChange={(e) => setMessage(e.target.value)}
+        onKeyDown={e=>{
+          if(e.key === 'Enter') onSubmit()
+        }}
         className="w-4/5"
       />
       <button
