@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Loader } from "../components/screens/ui/loader/Loader";
 import Image from "next/image";
 import { getImageUrl } from "../config/get-image-url.config";
+import cn from "clsx";
 
 export function Friends() {
   const { data, isLoading, isFetching } = useQuery({
@@ -15,24 +16,34 @@ export function Friends() {
 
   return (
     <div className="w-7/12 border-b border-border">
-      <h1 className="p-layout">People</h1>
+      <h1 className="p-layout border-r border-b border-border">People</h1>
       {isLoading || isFetching ? (
         <div className="p-layout">
           <Loader />
         </div>
       ) : (
-        <div className="p-layout grid grid-cols-3">
-          {data?.map((user) => (
-            <div key={user.id}>
+        <div className="grid grid-cols-3">
+          {data?.map((user, index) => (
+            <div
+              key={user.id}
+              className={cn(
+                "text-center border border-t-0 border-border p-layout",
+                { "border-l-0": index % 3 === 0 }
+              )}
+            >
               <Image
                 src={getImageUrl(user.avatar?.url) || "/no-avatar.png"}
                 alt={user.username}
-                width={80}
-                height={80}
+                width={100}
+                height={100}
                 priority
+                className="mx-auto"
               />
-              <div>{user.username}</div>
-              <button>Add to friend</button>
+              <div className="mt-3 text-xl font-medium">{user.username}</div>
+              <button className=
+                "border-b border-white transition-colors hover:border-primary hover:text-primary cursor-pointer mt-2">
+                Add to friend
+              </button>
             </div>
           ))}
         </div>
