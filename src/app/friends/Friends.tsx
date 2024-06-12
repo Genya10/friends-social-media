@@ -2,16 +2,56 @@
 
 import { $fetch } from "@/api/api.fetch";
 import { IUser } from "../types/user.types";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { Loader } from "../components/screens/ui/loader/Loader";
 import Image from "next/image";
 import { getImageUrl } from "../config/get-image-url.config";
-import cn from "clsx";
+import { useProfile } from "../hooks/useProfile";
+import { toast } from "react-hot-toast";
 
 export function Friends() {
-  const { data, isLoading, isFetching } = useQuery({
+  const { data: authUser, refetch: refetchProfile } = useProfile();
+  const { data, isLoading, isFetching, refetch } = useQuery({
     queryKey: ["users"],
     queryFn: () => $fetch.get<IUser[]>("/users?populate=avatar", true),
+  });
+
+  const { mutate: addFriend } = useMutation({
+    mutationKey: ["add friend"],
+    mutationFn: (friend: IUser) =>
+      $fetch
+        .put(
+          `/users/${authUser?.id}
+    `,
+          {
+            data: {
+              friends: [
+                ...(authUser?.friends.map(({ id }) => id) || []),
+                friend.id,
+              ],
+            },
+          },
+          true
+        )
+        .then(() =>
+          $fetch.put(
+            `/users/${authUser?.id}`,
+            {
+              data: {
+                friends: [
+                  ...(authUser?.friends.map(({ id }) => id) || []),
+                  friend.id,
+                ],
+              },
+            },
+            true
+          )
+        ),
+    onSuccess: () => {
+      refetchProfile();
+      refetch();
+      toast.success("Friend succesfully added");
+    },
   });
 
   return (
@@ -23,29 +63,31 @@ export function Friends() {
         </div>
       ) : (
         <div className="grid grid-cols-3">
-          {data?.map((user, index) => (
-            <div
-              key={user.id}
-              className={cn(
-                "text-center border border-t-0 border-border p-layout",
-                { "border-l-0": index % 3 === 0 }
-              )}
-            >
-              <Image
-                src={getImageUrl(user.avatar?.url) || "/no-avatar.png"}
-                alt={user.username}
-                width={100}
-                height={100}
-                priority
-                className="mx-auto"
-              />
-              <div className="mt-3 text-xl font-medium">{user.username}</div>
-              <button className=
-                "border-b border-white transition-colors hover:border-primary hover:text-primary cursor-pointer mt-2">
-                Add to friend
-              </button>
-            </div>
-          ))}
+          {data?.map((user) => {
+            const isFriends = authUser?.friends?.some((u) => u.id === user.id);
+            return (
+              <div
+                key={user.id}
+                className="text-center border border-l-0 border-t-0 border-border p-layout"
+              >
+                <Image
+                  src={getImageUrl(user.avatar?.url) || "/no-avatar.png"}
+                  alt={user.username}
+                  width={100}
+                  height={100}
+                  priority
+                  className="mx-auto"
+                />
+                <div className="mt-3 text-xl font-medium">{user.username}</div>
+                <button
+                  className="border-b border-white transition-colors hover:border-primary hover:text-primary cursor-pointer mt-2"
+                  onClick={() => addFriend(user)}
+                >
+                  {isFriends ? "Remove from friends" : "Add to friend"}
+                </button>
+              </div>
+            );
+          })}
         </div>
       )}
     </div>

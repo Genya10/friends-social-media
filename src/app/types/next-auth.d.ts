@@ -12,6 +12,7 @@ interface User {
     avatar?: string
     id?: stringjwt
     jwt?: string
+    friends?: User[]
 }
 
 declare module 'next-auth/jwt'{
