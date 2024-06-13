@@ -1,4 +1,4 @@
 
 export default function ChatPage(){
-  return <div>Click chat on the left side for open</div>
+  return <div className="p-layout">Click chat on the left side for open</div>
 }

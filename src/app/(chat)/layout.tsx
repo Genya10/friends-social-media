@@ -8,7 +8,7 @@ export default function ChatLayout({children}:
         return (
             <div className="grid h-full"
             style={{
-                gridTemplateColumns:'.7fr 3 fr'
+                gridTemplateColumns:'.7fr 3fr'
             }}>
              <div className="border-r border-border">
               <CurrentUser/>

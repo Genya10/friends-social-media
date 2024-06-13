@@ -1,10 +1,10 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { $fetch } from "@/api/api.fetch";
-import { User } from "../types/next-auth";
 import { IUser } from "@/app/types/user.types";
+import { AuthOptions, User } from "next-auth";
 
-export default NextAuth({
+export const nextAuthOptions : AuthOptions = {
   providers: [
     Credentials({
       credentials: {
@@ -24,8 +24,9 @@ export default NextAuth({
         if (credentials.username) {
           // Если предоставлено имя пользователя, выполняется регистрация
           try {
-            const data = await $fetch.post<{user:IUser,jwt:string }>(
-              `/auth/local/register`,
+            const data = await $fetch.post<{
+              user:IUser,jwt:string }>(
+              `/auth/local/register?.populate[avatar]=*`,
                credentials
             );
    
@@ -44,21 +45,20 @@ export default NextAuth({
         }
 
         try {
-          // Если имя пользователя не предоставлено, выполняется логин
-          const data = await $fetch.post<{user:IUser,jwt:string }>(
-            `/auth/local`,
-             {
+         
+          const data = await $fetch.post<{
+            user:IUser, jwt:string }>(
+            `/auth/local?populate[avatar]=*`, {             
             identifier:credentials.email,
             password:credentials.password
-          }
-          )
-
+          })
+          
          return {
-          id:data.user.email,
-          email:data.user.email,
-          avatar:data.user.avatar?.url,
-          username:data.user.username,
-          jwt:data.jwt
+            id:data.user.id.toString(),
+            email:data.user.email,
+            avatar:data.user.avatar?.url,
+            username:data.user.username,
+            jwt:data.jwt
          } as User
         } catch (e) {
           return Promise.reject({
@@ -74,10 +74,8 @@ export default NextAuth({
       return {...token,...user}
     },
     session({ session, token, user }) {
-      console.log(session, token, user)
+      //session.user = token as User
       return session;
     },
   },
-});
-
-
+};
