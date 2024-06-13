@@ -13,8 +13,8 @@ import { useDebounce } from "@/app/hooks/useDebounce";
 
 export default function ChatList() {
   const { user, isLoggedIn } = useAuth();
-  const [searchTerm, setSearchTerm] = useState('');
-  const debouncedSearchTerm = useDebounce(searchTerm)
+  const [searchTerm, setSearchTerm] = useState("");
+  const debouncedSearchTerm = useDebounce(searchTerm);
 
   const { data, isLoading, isFetching } = useQuery({
     queryKey: ["chats", debouncedSearchTerm],
@@ -24,8 +24,8 @@ export default function ChatList() {
         &populate[messages]=*
         &populate[participants][populate][avatar]=*
         &filters[participants][email][$eq]=${user?.email}
-        &filters[participants][username][$contains]=${debouncedSearchTerm}
-        &filters[messages][text][$contains]=${debouncedSearchTerm}`,
+        &filters[$or][0][participants][username][$contains]=${debouncedSearchTerm}
+        &filters[$or][1][messages][text][$contains]=${debouncedSearchTerm}`,
         true
       ),
     enabled: isLoggedIn,
@@ -35,21 +35,22 @@ export default function ChatList() {
   return (
     <div>
       <div className="border-t border-b border-border p-layout">
-        <Field placeholder="Search chats" Icon={Search} value=
-        {searchTerm} onChange={e => setSearchTerm(e.target.value)}/>
+        <Field
+          placeholder="Search chats"
+          Icon={Search}
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
       </div>
       <div>
         {isLoading || isFetching ? (
           <div className="p-layout">
             <Loader />
           </div>
-        ) : data?.data.length ? (
-          data?.data.map(chat => {
-            console.log("chat", chat);
+        ) : (
+          data?.data.map((chat) => {
             return <ChatListItem key={chat.id} chat={chat} />;
           })
-        ) : (
-          <p className="p-layout">Chats not found!</p>
         )}
       </div>
     </div>

@@ -11,7 +11,7 @@ interface IChatListItem {
   chat: IStrapiChat;
 }
 
-export function ChatListItem({ chat: chat, chat:id}: IChatListItem) {
+export function ChatListItem({ chat }: IChatListItem) {
   const { user } = useAuth();
 
   const correspondent = chat.participants.data.find(
@@ -21,8 +21,8 @@ export function ChatListItem({ chat: chat, chat:id}: IChatListItem) {
 
   return (
     <Link
-      href={`/chat/${id}`}
-      className="p-layout flex item-center border-b border-border
+      href={`/chat/${chat.id}`}
+      className="p-layout flex items-center border-b border-border
                 duration-300 ease-linear transition-colors 
                 hover:bg-border hover:bg-border animation-slide-fade"
     >
@@ -34,8 +34,8 @@ export function ChatListItem({ chat: chat, chat:id}: IChatListItem) {
           height={45}
           className="mr-4"
       />
-      <div className="text-sm">
-        <div className="flex items-center">
+      <div className="text-sm w-full">
+        <div className="flex items-center justify-between">
           <span>{correspondent?.username}</span>
           <span className="text-xs opacity-30">
             {dayjs(lastMessage?.createAt).format("HH:mm")}

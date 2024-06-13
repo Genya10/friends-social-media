@@ -24,7 +24,6 @@ export function Auth({ type }: IAuth) {
   });
 
   const {push} = useRouter()
-  //const {data:{user}} = useSession()
 
   const onSubmit: SubmitHandler<IAuthFormState> = async (data) => {
     setIsLoading(true)
@@ -52,14 +51,13 @@ export function Auth({ type }: IAuth) {
     push('/')
   };
 
-  
-
   // Рендеринг формы аутентификации
   return (
     <div className="flex w-screen h-full">
       <form
           onSubmit={handleSubmit(onSubmit)}
-          className="m-auto block w-96 border border-border p-8">
+          className="m-auto block w-96 border border-border p-8"
+      >
         <h1 className="text-center mb-10">{type}</h1>
         <Field
           {...register("email", {
@@ -84,7 +82,9 @@ export function Auth({ type }: IAuth) {
           className="mb-12"
         />
         <div className="text-center">
-          <Button isLoading={isLoading} disabled={isLoading} type="submit">{type}</Button>
+          <Button isLoading={isLoading} disabled={isLoading} type="submit">
+            {type}
+          </Button>
         </div>
       </form>
     </div>

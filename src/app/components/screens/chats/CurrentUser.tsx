@@ -7,18 +7,19 @@ import { LogOut } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useProfile } from "@/app/hooks/useProfile";
 import { Loader } from "../ui/loader/Loader";
+import { getImageUrl } from "@/app/config/get-image-url.config";
 
 export default function CurrentUser(){
     const { user } = useAuth()
-    const {push} = useRouter()
+    const { push } = useRouter()
     const { data, isLoading} = useProfile()
 
     return(
-        <div className="p-layout flex item-center justify-between">
-         <div className="flex item-center">
+        <div className="p-layout flex items-center justify-between">
+         <div className="flex items-center">
             {isLoading ? <Loader/>
             :  <Image 
-                   src={data?.avatar?.url || '/no-avatar.png'}
+                   src={getImageUrl(data?.avatar?.url) || '/no-avatar.png'}
                    alt={user?.email || ''}
                    width={50}
                    height={50}
@@ -31,7 +32,8 @@ export default function CurrentUser(){
                   <div className="opacity-40">UI/UX Desigh</div>
                 </div>        
          </div>
-         <button onClick={()=> signOut({
+         <button 
+            onClick={()=> signOut({
             redirect: false
          }).then(()=>{
             window.localStorage.removeItem('token')
