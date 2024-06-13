@@ -2,19 +2,19 @@ import { User2, Phone, MessageSquare, Settings } from "lucide-react";
 
 export const MENU = [
     {
-        url:'friends',
+        url:'/friends',
         icon: User2
     },
     {
-        url:'call',
+        url:'/call',
         icon: Phone
     },
     {
-        url:'chats',
+        url:'/',
         icon: MessageSquare
     },
     {
-        url:'settings',
+        url:'/settings',
         icon: Settings
     },
 ]

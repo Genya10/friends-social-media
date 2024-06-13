@@ -9,33 +9,31 @@ import cn from "clsx";
 import { usePathname } from "next/navigation";
 import { useAuth } from "@/app/hooks/useAuth";
 
-const isLoggedIn = false
-
 export function Sidebar() {
   const pathname = usePathname();
-  const {isLoggedIn} = useAuth();
+  const { isLoggedIn } = useAuth();
 
   return (
-    <aside className={cl.sidebar}>     
-      <Image
-        src="/linear-icon.svg"
-        priority
-        alt="image"
-        width={50}
-        height={50}
-      />
-      {MENU.map((item) => (
-        <Link
-          href={item.url}
-          key={item.url}
-          className={cn({
-            [cl.active]: pathname === item.url,
-          })}
-        >
-          <item.icon size={30} />
-        </Link>
-      ))}
-      <Sun />
+    <aside className={cl.sidebar}>
+      {isLoggedIn ? (
+        <>
+          <Image src="/logo.svg" priority alt="image" width={50} height={50} />
+          <div>
+            {MENU.map((item) => (
+              <Link
+                href={item.url}
+                key={item.url}
+                className={cn({
+                  [cl.active]: pathname === item.url,
+                })}
+              >
+                <item.icon size={30} />
+              </Link>
+            ))}
+          </div>
+          <Sun size={30} />
+        </>
+      ) : null}
     </aside>
   );
 }
