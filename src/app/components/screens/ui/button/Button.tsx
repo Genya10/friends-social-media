@@ -8,6 +8,8 @@ interface IButton extends InputHTMLAttributes<HTMLButtonElement>{
 
 export function Button ({isLoading, children}:IButton){
     return (
-        <button className={cl.button}>{isLoading ? <Loader/> : children}</button>
+        <button className={cl.button}>
+            {isLoading ? <Loader/> : children}
+        </button>
     )
 }

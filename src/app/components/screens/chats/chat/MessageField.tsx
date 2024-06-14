@@ -2,7 +2,6 @@
 
 import { ArrowRightToLine, Send } from "lucide-react";
 import { Field } from "../../ui/field/Field";
-import { IMessageField } from "./messages.types";
 import { useState } from "react";
 import { useReactQuerySocket } from "../../../../hooks/useReactQuerySocket";
 import { useParams } from "next/navigation";
@@ -22,14 +21,15 @@ export function MessageField() {
       $fetch.post("/messages", {
         data: {
           text: message,
-          sender: user?.id,
+          sender: Number(user?.id),
           chat: id
         },
-      }, true ),
+      }, 
+      true ),
     onSuccess() {
       setMessage('')
       send({
-        operation: "invalidate",
+        operation: "update",
         entity: "chat",
         id: id.toString(),
       });
@@ -37,7 +37,8 @@ export function MessageField() {
   });
 
   const onSubmit = () => {
-    if (!message) return;
+    if (!message) return
+    mutate()
   };
 
   return (

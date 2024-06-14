@@ -26,7 +26,7 @@ export function Message({ message }: { message: IMessage }) {
         />
         <div className={isSender ? "mr-3" : "ml-3"}>
           <div
-            className={`text-sm text-white py-1 mt-2 px-3 rounded-2xl ${
+            className={`text-sm text-white py-1 mt-4 px-3 rounded-2xl ${
               isSender
                 ? "rounded-tr-none bg-primary"
                 : "rounded-tl-none bg-border"
@@ -34,7 +34,7 @@ export function Message({ message }: { message: IMessage }) {
           >
             {message.text}
           </div>
-          <div className="text-xs opacity-30 block mt-1 text-right">
+          <div className="text-xs opacity-30 block mt-1">
             {dayjs(message.createAt).format("HH:mm")}
           </div>
         </div>
