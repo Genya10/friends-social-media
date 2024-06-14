@@ -10,7 +10,7 @@ interface User {
     email?: string
     username?: string
     avatar?: string
-    id?: stringjwt
+    id?: string
     jwt?: string
     friends?: User[]
 }

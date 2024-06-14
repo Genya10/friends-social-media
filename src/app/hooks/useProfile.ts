@@ -5,7 +5,7 @@ import { IUser } from "../types/user.types";
 export function useProfile(){
     return useQuery({
         queryKey:['profile'],
-        //queryFn:()=> $fetch.get<IUser>('/users/me?populate=deep', true),
-        queryFn:()=> $fetch.get<IUser>('/users/me?populate=avatar&populate[friends][populate]=users', true)
+        queryFn:()=> $fetch.get<IUser>('/users/me?populate=deep', true),
+        //queryFn:()=> $fetch.get<IUser>('/users/me?populate=avatar&populate[friends][populate]=users', true)
     })
 }

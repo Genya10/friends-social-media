@@ -1,4 +1,3 @@
-import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { $fetch } from "@/api/api.fetch";
 import { IUser } from "@/app/types/user.types";
@@ -45,8 +44,7 @@ export const nextAuthOptions : AuthOptions = {
         }
 
         try {
-         
-          const data = await $fetch.post<{
+            const data = await $fetch.post<{
             user:IUser, jwt:string }>(
             `/auth/local?populate[avatar]=*`, {             
             identifier:credentials.email,
@@ -70,7 +68,7 @@ export const nextAuthOptions : AuthOptions = {
   ],
   callbacks: {
     // Колбэк для управления сессией
-    jwt({token,user,account}){
+    jwt({token, user}){
       return {...token,...user}
     },
     session({ session, token, user }) {

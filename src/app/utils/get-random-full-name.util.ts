@@ -6,10 +6,12 @@ const fullNames: string[] = [
     "David Jones",
     "Sarah Miller",
     "Robert Wilson",
-    "Linda Garcia"
+    "Linda Garcia",
+    'James Davis',
+    'Michael Williams'
 ]
 
-export function getRandomFullName(): string{
+export function getRandomFullName(): string {
     const randomIndex = Math.floor(Math.random() * fullNames.length);
     return fullNames[randomIndex];
 }
