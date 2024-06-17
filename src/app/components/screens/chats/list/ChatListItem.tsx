@@ -2,22 +2,22 @@
 
 import { useAuth } from "@/app/hooks/useAuth";
 import Image from "next/image";
-import { IStrapiChat } from "../../../../types/chat.types";
+import { IChat } from "../../../../types/chat.types";
 import dayjs from "dayjs";
 import Link from "next/link";
 import { getImageUrl } from "@/app/config/get-image-url.config";
 
 interface IChatListItem {
-  chat: IStrapiChat;
+  chat: IChat;
 }
 
 export function ChatListItem({ chat }: IChatListItem) {
   const { user } = useAuth();
 
-  const correspondent = chat.participants.data.find(
+  const correspondent = chat.participants.find(
     (us) => us.email !== user?.email
   );
-  const lastMessage = chat.messages.data.at(-1);
+  const lastMessage = chat.messages.at(-1);
 
   return (
     <Link

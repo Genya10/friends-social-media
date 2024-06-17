@@ -3,7 +3,7 @@
 import { Field } from "../../ui/field/Field";
 import { Search } from "lucide-react";
 import { $fetch } from "@/api/api.fetch";
-import { IStrapiChat } from "../../../../types/chat.types";
+import { IChat } from "../../../../types/chat.types";
 import { useQuery } from "@tanstack/react-query";
 import { ChatListItem } from "./ChatListItem";
 import { Loader } from "../../ui/loader/Loader";
@@ -19,7 +19,7 @@ export default function ChatList() {
   const { data, isLoading, isFetching } = useQuery({
     queryKey: ["chats", debouncedSearchTerm],
     queryFn: () =>
-      $fetch.get<{ data: IStrapiChat[] }>(
+      $fetch.get<{ data: IChat[] }>(
         `/chats?sort=createAt:desc
         &populate[messages]=*
         &populate[participants][populate][avatar]=*
@@ -56,3 +56,4 @@ export default function ChatList() {
     </div>
   );
 }
+

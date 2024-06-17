@@ -13,10 +13,5 @@ export interface IChat {
   participants: IUser[];
 }
 
-export interface IStrapiChat {
-  id: number,
-  messages: { data: IMessage[] };
-  participants: { data: IUser[] };
-}
 
 
