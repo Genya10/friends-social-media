@@ -1,10 +1,10 @@
 .sidebar{
     height: 100%;
-    @apply flex items-center flex-col justify-between border-r-2 
-           py-5 py-layout;
+    @apply flex items-center flex-col justify-between border-r border-border 
+            py-layout px-6;
 
    a{
-    @apply mb-5 block;
+    @apply mb-20 block;
    }
 
    &.active > svg {
